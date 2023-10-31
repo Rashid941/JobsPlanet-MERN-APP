@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "18.17.1"
+  },
   "name": "template",
   "version": "0.1.0",
   "private": true,
