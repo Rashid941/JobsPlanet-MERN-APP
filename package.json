@@ -33,9 +33,9 @@
     "scripts": {
         "start": "concurrently \"node backend/server.js\" \"npm run start-frontend\"",
         "start-frontend": "cd frontend && npm start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "build": "npm build"
+        
+        
     },
     "eslintConfig": {
         "extends": "react-app"
