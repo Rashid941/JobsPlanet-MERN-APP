@@ -32,8 +32,8 @@
     },
     "scripts": {
         "start": "concurrently \"node backend/server.js\" \"npm run start-frontend\"",
-        "start-frontend": "cd frontend && npm start",
-        "build": "npm build"
+        "start-frontend": "cd frontend && npm start"
+        
         
         
     },
