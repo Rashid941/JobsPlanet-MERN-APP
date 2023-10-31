@@ -22,7 +22,7 @@ class MyActiveJobs extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {
+        this.setState = {
             userdetails: [],
             users: [],
             applications: [],
@@ -46,35 +46,35 @@ class MyActiveJobs extends Component {
     };
 
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setsetState({ [e.target.id]: e.target.value });
     };
 
     componentDidMount() {
         const { user } = this.props.auth;
         axios.get('http://localhost:4000/user/'+ user.id)
                 .then(response => {
-                    this.setState({userdetails: response.data});
+                    this.setsetState({userdetails: response.data});
                 })
                 .catch(function(error) {
                     console.log(error);
                 })
         axios.get('http://localhost:4000/job/get_jobs')
             .then(response => {
-                this.setState({jobs: response.data, sortedJobs:response.data});
+                this.setsetState({jobs: response.data, sortedJobs:response.data});
             })
             .catch(function(error) {
                 console.log(error);
             })
         axios.get('http://localhost:4000/user/')
             .then(response => {
-                this.setState({users: response.data});
+                this.setsetState({users: response.data});
             })
             .catch(function(error) {
                 console.log(error);
             })
         axios.get('http://localhost:4000/application/get_applications')
             .then(response => {
-                this.setState({applications: response.data});
+                this.setsetState({applications: response.data});
             })
             .catch(function(error) {
                 console.log(error);
@@ -84,15 +84,15 @@ class MyActiveJobs extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({
+            this.setsetState({
             errors: nextProps.errors
             });
         }
     }
 
     deljob(id) {
-        let applicationsArray = this.state.applications;
-        let usersArray = this.state.users;
+        let applicationsArray = this.setState.applications;
+        let usersArray = this.setState.users;
         axios
             .delete('http://localhost:4000/job/del_job/' + id)
             .then(response => {
@@ -167,26 +167,26 @@ class MyActiveJobs extends Component {
     }
 
     editJob(job) {
-        let show = !this.state.showform;
-        this.setState({ showform: show});
-        this.setState({ editing: job._id });
-        console.log(this.state.showform);
-        this.setState({ appmax: job.appmax });
-        this.setState({ posmax: job.posmax });
+        let show = !this.setState.showform;
+        this.setsetState({ showform: show});
+        this.setsetState({ editing: job._id });
+        console.log(this.setState.showform);
+        this.setsetState({ appmax: job.appmax });
+        this.setsetState({ posmax: job.posmax });
         if(job.deadline)
         {
             job.deadline = job.deadline.toString();
             job.deadline = job.deadline.substring(0,10);
-            this.setState({ deadline: job.deadline });
+            this.setsetState({ deadline: job.deadline });
         }
         // to refresh
         // this.props.history.push('/viewMyActiveJobs');
     }
 
     onBack() {
-        let show = !this.state.showform;
-        this.setState({ showform: show});
-        this.setState({ editing: "" });
+        let show = !this.setState.showform;
+        this.setsetState({ showform: show});
+        this.setsetState({ editing: "" });
         
         // to refresh
         this.props.history.push('/viewMyActiveJobs');
@@ -194,25 +194,25 @@ class MyActiveJobs extends Component {
 
     editJobSubmit(job) {
         const idToChange = job._id;
-        const ind = this.state.jobs.findIndex(x => x._id === idToChange)
+        const ind = this.setsetState.jobs.findIndex(x => x._id === idToChange)
         
-        if(this.state.deadline)
-            this.state.jobs[ind].deadline = this.state.deadline;
-        if(this.state.appmax < this.state.posmax)
+        if(this.setsetState.deadline)
+            this.setsetState.jobs[ind].deadline = this.setState.deadline;
+        if(this.setsetState.appmax < this.setState.posmax)
         {
             alert("Max. no. of applications cannot be less than the max. no. of positions.");
         }
         else
         {
-            if(this.state.appmax)
-                this.state.jobs[ind].appmax = this.state.appmax;
-            if(this.state.posmax)
-                this.state.jobs[ind].posmax = this.state.posmax;
+            if(this.setsetState.appmax)
+                this.setsetState.jobs[ind].appmax = this.setState.appmax;
+            if(this.setsetState.posmax)
+                this.setsetState.jobs[ind].posmax = this.setState.posmax;
             axios
-                .put('http://localhost:4000/job/edit_job/' + idToChange, this.state.jobs[ind])
+                .put('http://localhost:4000/job/edit_job/' + idToChange, this.setsetState.jobs[ind])
                 .then(response => {
-                    console.log(this.state.jobs[ind]);
-                    this.setState({ editing: "" });
+                    console.log(this.setState.jobs[ind]);
+                    this.setsetState({ editing: "" });
                 })
                 .catch(function(error) {
                     alert("Job couldn't be updated!");
@@ -221,16 +221,16 @@ class MyActiveJobs extends Component {
         }
         // to refresh
         
-        let show = !this.state.showform;
-        this.setState({ showform: show});
+        let show = !this.setState.showform;
+        this.setsetState({ showform: show});
         // window.location.reload();
     }
 
 
     render() 
     {
-        const userRole = this.state.userdetails.role;
-        const userid = this.state.userdetails._id;
+        const userRole = this.setState.userdetails.role;
+        const userid = this.setState.userdetails._id;
         let MyActiveJobs;
         if(userRole === "recruiter") {
             MyActiveJobs =
@@ -261,7 +261,7 @@ class MyActiveJobs extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.state.jobs.filter(item => item.recruiter === userid && item.numpos < item.posmax).map((job,ind) => (
+                                    {this.setState.jobs.filter(item => item.recruiter === userid && item.numpos < item.posmax).map((job,ind) => (
                                         <TableRow key={ind}>
                                             <TableCell>{job.title}</TableCell>
                                             <TableCell>{job.dateOfPost.substring(0,10)}</TableCell>
@@ -271,7 +271,7 @@ class MyActiveJobs extends Component {
                                                 <Link
                                                     to={{
                                                         pathname: "/appList",
-                                                        state: job._id // data array of objects
+                                                        setState: job._id // data array of objects
                                                     }}
                                                     >View applications</Link>
                                                 
@@ -311,7 +311,7 @@ class MyActiveJobs extends Component {
                                             </TableCell>
                                             <TableCell>                   
                                             <div>
-                                            { !this.state.showform || this.state.editing !== job._id? 
+                                            { !this.setState.showform || this.setState.editing !== job._id? 
                                                 <div></div>
                                             : 
                                                 <div>
@@ -321,7 +321,7 @@ class MyActiveJobs extends Component {
                                                             <label htmlFor="appmax">Maximum number of applications allowed</label><br></br>
                                                             <input
                                                                 onChange={this.onChange}
-                                                                value={this.state.appmax}
+                                                                value={this.setState.appmax}
                                                                 id="appmax"
                                                                 type="number"
                                                                 min="0"
@@ -331,7 +331,7 @@ class MyActiveJobs extends Component {
                                                             <label htmlFor="posmax">Maximum number of positions available</label><br></br>
                                                             <input
                                                                 onChange={this.onChange}
-                                                                value={this.state.posmax}
+                                                                value={this.setState.posmax}
                                                                 id="posmax"
                                                                 type="number"
                                                                 min="0"
@@ -341,7 +341,7 @@ class MyActiveJobs extends Component {
                                                             <label htmlFor="deadline">Deadline for application</label><br></br>
                                                             <input
                                                                 onChange={this.onChange}
-                                                                value={this.state.deadline}
+                                                                value={this.setState.deadline}
                                                                 id="deadline"
                                                                 type="date"
                                                             />
@@ -401,10 +401,10 @@ MyActiveJobs.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+const mapsetStateToProps = setState => ({
+    auth: setState.auth,
+    errors: setState.errors
 });
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
 )(MyActiveJobs);

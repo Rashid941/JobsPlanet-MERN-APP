@@ -22,7 +22,7 @@ class AppList extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {
+        this.setState = {
             userdetails: [],
             users: [],
             jobs: [],
@@ -47,35 +47,35 @@ class AppList extends Component {
     };
 
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setsetState({ [e.target.id]: e.target.value });
     };
 
     componentDidMount() {
         const { user } = this.props.auth;
         axios.get('http://localhost:4000/user/'+ user.id)
                 .then(response => {
-                    this.setState({userdetails: response.data});
+                    this.setsetState({userdetails: response.data});
                 })
                 .catch(function(error) {
                     console.log(error);
                 })
         axios.get('http://localhost:4000/job/get_jobs')
             .then(response => {
-                this.setState({jobs: response.data});
+                this.setsetState({jobs: response.data});
             })
             .catch(function(error) {
                 console.log(error);
             })
         axios.get('http://localhost:4000/user/')
             .then(response => {
-                this.setState({users: response.data});
+                this.setsetState({users: response.data});
             })
             .catch(function(error) {
                 console.log(error);
             })
         axios.get('http://localhost:4000/application/get_applications')
             .then(response => {
-                this.setState({applications: response.data});
+                this.setsetState({applications: response.data});
             })
             .catch(function(error) {
                 console.log(error);
@@ -85,7 +85,7 @@ class AppList extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({
+            this.setsetState({
             errors: nextProps.errors
             });
         }
@@ -93,20 +93,20 @@ class AppList extends Component {
 
     getjob(jobId)
     {
-        let job = this.state.jobs.filter(item => item._id === jobId)[0];
+        let job = this.setState.jobs.filter(item => item._id === jobId)[0];
         return job;
     }
 
     getapplicant(applicantId)
     {
-        let applicant = this.state.users.filter(item => item._id === applicantId)[0];
+        let applicant = this.setState.users.filter(item => item._id === applicantId)[0];
         return applicant;
     }
 
     sortByName(){
-        var array = this.state.applications;
-        var flag = this.state.sortbyname;
-        let uusers = this.state.users;
+        var array = this.setState.applications;
+        var flag = this.setState.sortbyname;
+        let uusers = this.setState.users;
         function getapplicant(applicantId)
         {
             let applicant = uusers.filter(item => item._id === applicantId)[0];
@@ -123,15 +123,15 @@ class AppList extends Component {
                 return 1;
             }
           });
-        this.setState({
+        this.setsetState({
             applications:array,
-            sortbyname:!this.state.sortbyname,
+            sortbyname:!this.setState.sortbyname,
         })
     }
 
     sortByDateOfApply(){
-        var array = this.state.applications;
-        var flag = this.state.sortbydateofapply;
+        var array = this.setState.applications;
+        var flag = this.setState.sortbydateofapply;
         array.sort(function(a, b) {
             if(a.dateOfApply !== undefined && b.dateOfApply !== undefined){
                 return (1 - +flag*2) * (new Date(a.dateOfApply) - new Date(b.dateOfApply));
@@ -140,16 +140,16 @@ class AppList extends Component {
                 return 1;
             }
           });
-        this.setState({
+        this.setsetState({
             applications:array,
-            sortbydateofapply:!this.state.sortbydateofapply,
+            sortbydateofapply:!this.setState.sortbydateofapply,
         })
     }
 
     sortByRating(){
-        var array = this.state.applications;
-        var flag = this.state.sortbyrating;
-        let uusers = this.state.users;
+        var array = this.setState.applications;
+        var flag = this.setState.sortbyrating;
+        let uusers = this.setState.users;
         function getapplicant(applicantId)
         {
             let applicant = uusers.filter(item => item._id === applicantId)[0];
@@ -165,14 +165,14 @@ class AppList extends Component {
                 return 1;
             }
           });
-        this.setState({
+        this.setsetState({
             applications:array,
-            sortbyrating:!this.state.sortbyrating,
+            sortbyrating:!this.setState.sortbyrating,
         })
     }
 
     renderNameIcon(){
-        if(this.state.sortbyname){
+        if(this.setState.sortbyname){
             return(
                 <ArrowDownwardIcon/>
             )
@@ -185,7 +185,7 @@ class AppList extends Component {
     }
 
     renderDateOfApplyIcon(){
-        if(this.state.sortbydateofapply){
+        if(this.setState.sortbydateofapply){
             return(
                 <ArrowDownwardIcon/>
             )
@@ -198,7 +198,7 @@ class AppList extends Component {
     }
 
     renderRatingIcon(){
-        if(this.state.sortbyrating){
+        if(this.setState.sortbyrating){
             return(
                 <ArrowDownwardIcon/>
             )
@@ -235,7 +235,7 @@ class AppList extends Component {
         }
         else if(job.numpos === job.posmax - 1)
         {
-            this.state.applications.filter(item => item.applicantId !== application.applicantId && item.jobId === application.jobId && item.status !== "Deleted" && item.status !== "Accepted").forEach(
+            this.setState.applications.filter(item => item.applicantId !== application.applicantId && item.jobId === application.jobId && item.status !== "Deleted" && item.status !== "Accepted").forEach(
                 function(appli)
                 {
                     // let temp = job;
@@ -307,8 +307,8 @@ class AppList extends Component {
             .catch(function(error) {
                 console.log(error);
             })
-        let alljobs = this.state.jobs;
-        this.state.applications.filter(item => item.applicantId === application.applicantId && item._id !== application._id && item.status !== "Deleted").forEach(
+        let alljobs = this.setState.jobs;
+        this.setState.applications.filter(item => item.applicantId === application.applicantId && item._id !== application._id && item.status !== "Deleted").forEach(
             function(appli)
             {
                 // let appliJob = alljobs.filter(item => item._id === appli.jobId)[0];
@@ -401,7 +401,7 @@ class AppList extends Component {
     render() 
     {
         const { user } = this.props.auth;
-        const userRole = this.state.userdetails.role;
+        const userRole = this.setState.userdetails.role;
         let Applications;
         if(userRole === "recruiter") {
             Applications =
@@ -435,19 +435,19 @@ class AppList extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.state.applications.filter(item => item.status !== "Rejected" && item.recruiterId === user.id && item.jobId === this.props.location.state).map((application,ind) => (
+                                    {this.setState.applications.filter(item => item.status !== "Rejected" && item.recruiterId === user.id && item.jobId === this.props.location.setState).map((application,ind) => (
                                         <TableRow key={ind}>
                                             <TableCell>{application.title}</TableCell>
-                                            {this.state.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
+                                            {this.setState.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
                                                 <TableCell key={innd}>{applicant.name}</TableCell>
                                             ))}
-                                            {this.state.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
+                                            {this.setState.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
                                                 <TableCell key={innd}>{applicant.rating ? applicant.rating.toFixed(1): ""}<i className="material-icons"><h6> star</h6></i></TableCell>
                                             ))}
-                                            {this.state.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
+                                            {this.setState.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
                                                 <TableCell key={innd}>{applicant.skills.join(", ")}</TableCell>
                                             ))}
-                                            {this.state.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
+                                            {this.setState.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
                                                 <TableCell key={innd}>
                                                     {
                                                         applicant.education.map(ed => (
@@ -555,10 +555,10 @@ AppList.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+const mapsetStateToProps = setState => ({
+    auth: setState.auth,
+    errors: setState.errors
 });
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
 )(AppList);

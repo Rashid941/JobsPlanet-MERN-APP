@@ -8,7 +8,7 @@ import { logoutUser } from "../../actions/authActions";
 class Dashboard extends Component {
     constructor(props) {
         super(props);
-        this.state = 
+        this.setState = 
         {
             userdetails: [], 
         };
@@ -23,7 +23,7 @@ class Dashboard extends Component {
         const { user } = this.props.auth;
         axios.get('http://localhost:4000/user/'+ user.id)
              .then(response => {
-                 this.setState({userdetails: response.data});
+                 this.setsetState({userdetails: response.data});
              })
              .catch(function(error) {
                  console.log(error);
@@ -33,7 +33,7 @@ class Dashboard extends Component {
     render() {
         const { user } = this.props.auth;
         let UserOptions;
-        if(this.state.userdetails.role === "applicant")
+        if(this.setState.userdetails.role === "applicant")
         {
             UserOptions = 
             <ul>
@@ -42,7 +42,7 @@ class Dashboard extends Component {
                 <li><a href="/myApplications">My Applications</a></li>
             </ul>
         }
-        else if(this.state.userdetails.role === "recruiter")
+        else if(this.setState.userdetails.role === "recruiter")
         {
             UserOptions = 
             <ul>
@@ -104,10 +104,10 @@ Dashboard.propTypes = {
     auth: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth
+const mapsetStateToProps = setState => ({
+    auth: setState.auth
 });
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
     { logoutUser }
 )(Dashboard);

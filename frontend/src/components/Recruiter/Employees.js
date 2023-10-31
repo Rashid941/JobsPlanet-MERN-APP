@@ -23,7 +23,7 @@ class Employees extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {
+        this.setState = {
             userdetails: [],
             users: [],
             jobs: [],
@@ -54,28 +54,28 @@ class Employees extends Component {
         const { user } = this.props.auth;
         axios.get('http://localhost:4000/user/'+ user.id)
             .then(response => {
-                this.setState({userdetails: response.data});
+                this.setsetState({userdetails: response.data});
             })
             .catch(function(error) {
                 console.log(error);
             })
         axios.get('http://localhost:4000/job/get_jobs')
             .then(response => {
-                this.setState({jobs: response.data});
+                this.setsetState({jobs: response.data});
             })
             .catch(function(error) {
                 console.log(error);
             })
         axios.get('http://localhost:4000/user/')
             .then(response => {
-                this.setState({users: response.data});
+                this.setsetState({users: response.data});
             })
             .catch(function(error) {
                 console.log(error);
             })
         axios.get('http://localhost:4000/application/get_applications')
             .then(response => {
-                this.setState({applications: response.data});
+                this.setsetState({applications: response.data});
             })
             .catch(function(error) {
                 console.log(error);
@@ -85,14 +85,14 @@ class Employees extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({
+            this.setsetState({
             errors: nextProps.errors
             });
         }
     }
 
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setsetState({ [e.target.id]: e.target.value });
     };
 
     rated(application) {
@@ -102,26 +102,26 @@ class Employees extends Component {
 
     giveRating(e) {
         console.log(e.target.value);
-        this.setState({rating: e.target.value});
+        this.setsetState({rating: e.target.value});
     }
 
     getjob(jobId)
     {
-        let job = this.state.jobs.filter(item => item._id === jobId)[0];
+        let job = this.setState.jobs.filter(item => item._id === jobId)[0];
         return job;
     }
 
     getapplicant(applicantId)
     {
-        let applicant = this.state.users.filter(item => item._id === applicantId)[0];
+        let applicant = this.setState.users.filter(item => item._id === applicantId)[0];
         console.log(applicant);
         return applicant;
     }
 
     sortByRating(){
-        var array = this.state.applications;
-        var flag = this.state.sortbyrating;
-        let uusers = this.state.users;
+        var array = this.setState.applications;
+        var flag = this.setState.sortbyrating;
+        let uusers = this.setState.users;
         function getapplicant(applicantId)
         {
             let applicant = uusers.filter(item => item._id === applicantId)[0];
@@ -137,14 +137,14 @@ class Employees extends Component {
                 return 1;
             }
           });
-        this.setState({
+        this.setsetState({
             applications:array,
-            sortbyrating:!this.state.sortbyrating,
+            sortbyrating:!this.setState.sortbyrating,
         })
     }
 
     renderRatingIcon(){
-        if(this.state.sortbyrating){
+        if(this.setState.sortbyrating){
             return(
                 <ArrowDownwardIcon/>
             )
@@ -157,9 +157,9 @@ class Employees extends Component {
     }
 
     sortByName(){
-        var array = this.state.applications;
-        var flag = this.state.sortbyname;
-        let uusers = this.state.users;
+        var array = this.setState.applications;
+        var flag = this.setState.sortbyname;
+        let uusers = this.setState.users;
         function getapplicant(applicantId)
         {
             let applicant = uusers.filter(item => item._id === applicantId)[0];
@@ -176,14 +176,14 @@ class Employees extends Component {
                 return 1;
             }
           });
-        this.setState({
+        this.setsetState({
             applications:array,
-            sortbyname:!this.state.sortbyname,
+            sortbyname:!this.setState.sortbyname,
         })
     }
 
     renderNameIcon(){
-        if(this.state.sortbyname){
+        if(this.setState.sortbyname){
             return(
                 <ArrowDownwardIcon/>
             )
@@ -196,9 +196,9 @@ class Employees extends Component {
     }
 
     sortByTitle(){
-        var array = this.state.applications;
-        var flag = this.state.sortbytitle;
-        let jjobs = this.state.jobs;
+        var array = this.setState.applications;
+        var flag = this.setState.sortbytitle;
+        let jjobs = this.setState.jobs;
         function getjob(jobId)
         {
             let job = jjobs.filter(item => item._id === jobId)[0];
@@ -214,14 +214,14 @@ class Employees extends Component {
                 return 1;
             }
           });
-        this.setState({
+        this.setsetState({
             applications:array,
-            sortbytitle:!this.state.sortbytitle,
+            sortbytitle:!this.setState.sortbytitle,
         })
     }
 
     renderTitleIcon(){
-        if(this.state.sortbytitle){
+        if(this.setState.sortbytitle){
             return(
                 <ArrowDownwardIcon/>
             )
@@ -234,8 +234,8 @@ class Employees extends Component {
     }
 
     sortByDateOfJoin(){
-        var array = this.state.applications;
-        var flag = this.state.sortbydateofjoin;
+        var array = this.setState.applications;
+        var flag = this.setState.sortbydateofjoin;
         array.sort(function(a, b) {
             if(a.dateOfJoin !== undefined && b.dateOfJoin !== undefined){
                 return (1 - +flag*2) * (new Date(a.dateOfJoin) - new Date(b.dateOfJoin));
@@ -244,14 +244,14 @@ class Employees extends Component {
                 return 1;
             }
           });
-        this.setState({
+        this.setsetState({
             applications:array,
-            sortbydateofjoin:!this.state.sortbydateofjoin,
+            sortbydateofjoin:!this.setState.sortbydateofjoin,
         })
     }
 
     renderDateOfJoinIcon(){
-        if(this.state.sortbydateofjoin){
+        if(this.setState.sortbydateofjoin){
             return(
                 <ArrowDownwardIcon/>
             )
@@ -272,11 +272,11 @@ class Employees extends Component {
         let nrating = 0;
         if(applicant.rating === -1)
         {
-            nrating = +this.state.rating;
+            nrating = +this.setState.rating;
         }
         else
         {
-            nrating = ((+applicant.rating * (+nrate-1)) + +this.state.rating) / (+nrate);
+            nrating = ((+applicant.rating * (+nrate-1)) + +this.setState.rating) / (+nrate);
         }
 
         const editApplicant = {
@@ -315,7 +315,7 @@ class Employees extends Component {
     render() 
     {
         const { user } = this.props.auth;
-        const userRole = this.state.userdetails.role;
+        const userRole = this.setState.userdetails.role;
         let Myemployees;
         if(userRole === "recruiter") {
             Myemployees =
@@ -343,24 +343,24 @@ class Employees extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.state.applications.filter(item => item.status === "Accepted" && item.recruiterId === user.id).map((application,ind) => (
+                                    {this.setState.applications.filter(item => item.status === "Accepted" && item.recruiterId === user.id).map((application,ind) => (
                                         <TableRow key={ind}>
                                             
-                                            {this.state.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
+                                            {this.setState.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
                                                 <TableCell key={innd}>{applicant.name}</TableCell>
                                             ))}
 
-                                            {this.state.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
+                                            {this.setState.users.filter(item => item._id === application.applicantId).map((applicant,innd) => (
                                                 <TableCell key={innd}>{applicant.rating ? applicant.rating.toFixed(1): ""}<i className="material-icons"><h6> star</h6></i></TableCell>
                                             ))}
                                             
-                                            {this.state.jobs.filter(item => item._id === application.jobId).map((job,innnd) => (
+                                            {this.setState.jobs.filter(item => item._id === application.jobId).map((job,innnd) => (
                                                 <TableCell key={innnd}>
                                                     {job.title}
                                                 </TableCell>
                                             ))}
 
-                                            {this.state.jobs.filter(item => item._id === application.jobId).map((job,innnd) => (
+                                            {this.setState.jobs.filter(item => item._id === application.jobId).map((job,innnd) => (
                                                 <TableCell key={innnd}>
                                                     {job.type}
                                                 </TableCell>
@@ -370,7 +370,7 @@ class Employees extends Component {
                                             
                                             <TableCell>
                                                 <Rating
-                                                    value={this.state.rating}
+                                                    value={this.setState.rating}
                                                     onChange={this.giveRating}
                                                 />
                                                 <Tooltip title="Rate this employee" aria-label="rate">
@@ -421,10 +421,10 @@ Employees.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+const mapsetStateToProps = setState => ({
+    auth: setState.auth,
+    errors: setState.errors
 });
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
 )(Employees);

@@ -8,7 +8,7 @@ import classnames from "classnames";
 class Register extends Component {
     constructor() {
         super();
-        this.state = {
+        this.setState = {
             name: "",
             email: "",
             password: "",
@@ -21,7 +21,7 @@ class Register extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(event) {
-        this.setState({role: event.target.value});
+        this.setsetState({role: event.target.value});
     }
     componentDidMount() {
         // If logged in and user navigates to Register page, should redirect them to dashboard
@@ -31,34 +31,34 @@ class Register extends Component {
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({
+            this.setsetState({
             errors: nextProps.errors
             });
         }
     }
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setsetState({ [e.target.id]: e.target.value });
     };
     onSubmit = e => {
         e.preventDefault();
-        console.log(this.state.skills);
-        if(this.state.role === "applicant" && this.state.skills !== "" && this.state.skills.length !== 0)
-            this.state.skills = this.state.skills.split(',');
+        console.log(this.setState.skills);
+        if(this.setState.role === "applicant" && this.setState.skills !== "" && this.setState.skills.length !== 0)
+            this.setState.skills = this.setState.skills.split(',');
         const newUser = {
-            name: this.state.name,
-            email: this.state.email,
-            password: this.state.password,
-            password2: this.state.password2,
-            role: this.state.role,
-            phone_number: this.state.phone_number,
-            skills: this.state.skills
+            name: this.setState.name,
+            email: this.setState.email,
+            password: this.setState.password,
+            password2: this.setState.password2,
+            role: this.setState.role,
+            phone_number: this.setState.phone_number,
+            skills: this.setState.skills
         };
         this.props.registerUser(newUser, this.props.history);
         console.log(newUser);
     };
     render() {
-        const { errors } = this.state;
-        const userRole = this.state.role;
+        const { errors } = this.setState;
+        const userRole = this.setState.role;
         let RoleForm;
         if(userRole === 'applicant') {
             RoleForm = 
@@ -66,7 +66,7 @@ class Register extends Component {
                 <label htmlFor="skills">Skills (comma-separated):</label><br></br>
                 <input
                     onChange={this.onChange}
-                    value={this.state.skills}
+                    value={this.setState.skills}
                     placeholder="Enter skills"
                     id="skills"
                     type="text"
@@ -79,7 +79,7 @@ class Register extends Component {
                 <label htmlFor="phone_number">Phone no.</label><br></br>
                 <input
                     onChange={this.onChange}
-                    value={this.state.phone_number}
+                    value={this.setState.phone_number}
                     id="phone_number"
                     type="number"
                 />
@@ -104,7 +104,7 @@ class Register extends Component {
                             <div className="input-field col s12">
                                 <label htmlFor="name">Role</label><br></br>
                                 <select 
-                                    value={this.state.role} 
+                                    value={this.setState.role} 
                                     onChange={this.handleChange}
                                     error={errors.role}
                                     id="role"
@@ -122,7 +122,7 @@ class Register extends Component {
                                 <label htmlFor="name">Name</label><br></br>
                                 <input
                                     onChange={this.onChange}
-                                    value={this.state.name}
+                                    value={this.setState.name}
                                     error={errors.name}
                                     id="name"
                                     type="text"
@@ -136,7 +136,7 @@ class Register extends Component {
                                 <label htmlFor="email">Email</label><br></br>
                                 <input
                                     onChange={this.onChange}
-                                    value={this.state.email}
+                                    value={this.setState.email}
                                     error={errors.email}
                                     id="email"
                                     type="email"
@@ -150,7 +150,7 @@ class Register extends Component {
                                 <label htmlFor="password">Password</label><br></br>
                                 <input
                                     onChange={this.onChange}
-                                    value={this.state.password}
+                                    value={this.setState.password}
                                     error={errors.password}
                                     id="password"
                                     type="password"
@@ -164,7 +164,7 @@ class Register extends Component {
                                 <label htmlFor="password2">Confirm Password</label><br></br>
                                 <input
                                     onChange={this.onChange}
-                                    value={this.state.password2}
+                                    value={this.setState.password2}
                                     error={errors.password2}
                                     id="password2"
                                     type="password"
@@ -206,12 +206,12 @@ Register.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+const mapsetStateToProps = setState => ({
+    auth: setState.auth,
+    errors: setState.errors
 });
 
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
     { registerUser }
 )(withRouter(Register));

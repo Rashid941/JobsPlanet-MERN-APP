@@ -16,7 +16,7 @@ class UsersList extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {users: [],sortedUsers: [], sortName:true};
+        this.setState = {users: [],sortedUsers: [], sortName:true};
         this.renderIcon = this.renderIcon.bind(this);
         this.sortChange = this.sortChange.bind(this);
     }
@@ -24,7 +24,7 @@ class UsersList extends Component {
     componentDidMount() {
         axios.get('http://localhost:4000/user')
              .then(response => {
-                 this.setState({users: response.data, sortedUsers:response.data});
+                 this.setsetState({users: response.data, sortedUsers:response.data});
              })
              .catch(function(error) {
                  console.log(error);
@@ -32,8 +32,8 @@ class UsersList extends Component {
     }
 
     sortChange(){
-        var array = this.state.users;
-        var flag = this.state.sortName;
+        var array = this.setState.users;
+        var flag = this.setState.sortName;
         array.sort(function(a, b) {
             if(a.date !== undefined && b.date !== undefined){
                 return (1 - flag*2) * (new Date(a.date) - new Date(b.date));
@@ -42,13 +42,13 @@ class UsersList extends Component {
                 return 1;
             }
           });
-        this.setState({
+        this.setsetState({
             users:array,
-            sortName:!this.state.sortName,
+            sortName:!this.setState.sortName,
         })
     }
     renderIcon(){
-        if(this.state.sortName){
+        if(this.setState.sortName){
             return(
                 <ArrowDownwardIcon/>
             )
@@ -75,7 +75,7 @@ class UsersList extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.state.users.map((user,ind) => (
+                                    {this.setState.users.map((user,ind) => (
                                         <TableRow key={ind}>
                                             <TableCell>{user.date.substring(0,10)}</TableCell>
                                             <TableCell>{user.name}</TableCell>

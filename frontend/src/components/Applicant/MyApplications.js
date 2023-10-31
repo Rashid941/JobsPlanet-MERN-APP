@@ -20,7 +20,7 @@ class MyApplications extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {
+        this.setState = {
             userdetails: [],
             applications: [],
             rating: 0
@@ -36,32 +36,32 @@ class MyApplications extends Component {
     };
 
     giveRating(e) {
-        this.setState({rating: e.target.value});
+        this.setsetState({rating: e.target.value});
     }
 
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setsetState({ [e.target.id]: e.target.value });
     };
 
     componentDidMount() {
         const { user } = this.props.auth;
         axios.get('http://localhost:4000/user/'+ user.id)
                 .then(response => {
-                    this.setState({userdetails: response.data});
+                    this.setsetState({userdetails: response.data});
                 })
                 .catch(function(error) {
                     console.log(error);
                 })
         axios.get('http://localhost:4000/job/get_jobs')
             .then(response => {
-                this.setState({jobs: response.data, sortedJobs:response.data});
+                this.setsetState({jobs: response.data, sortedJobs:response.data});
             })
             .catch(function(error) {
                 console.log(error);
             })
         axios.get('http://localhost:4000/application/get_applications')
             .then(response => {
-                this.setState({applications: response.data});
+                this.setsetState({applications: response.data});
             })
             .catch(function(error) {
                 console.log(error);
@@ -71,7 +71,7 @@ class MyApplications extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({
+            this.setsetState({
             errors: nextProps.errors
             });
         }
@@ -84,7 +84,7 @@ class MyApplications extends Component {
 
     getjob(jobId)
     {
-        let job = this.state.jobs.filter(item => item._id === jobId)[0];
+        let job = this.setState.jobs.filter(item => item._id === jobId)[0];
         return job;
     }
 
@@ -96,11 +96,11 @@ class MyApplications extends Component {
         let nrating = 0;
         if(job.rating === -1)
         {
-            nrating = this.state.rating
+            nrating = this.setState.rating
         }
         else
         {
-            nrating = ((+job.rating * (+nrate-1)) + +this.state.rating) / (+nrate);
+            nrating = ((+job.rating * (+nrate-1)) + +this.setState.rating) / (+nrate);
         }
 
         const editJob = {
@@ -109,7 +109,7 @@ class MyApplications extends Component {
         };
 
         const editApplication = {
-            rating: this.state.rating
+            rating: this.setState.rating
         };
 
         axios
@@ -139,7 +139,7 @@ class MyApplications extends Component {
     render() 
     {
         const { user } = this.props.auth;
-        const userRole = this.state.userdetails.role;
+        const userRole = this.setState.userdetails.role;
         let AppliedJobs;
         if(userRole === "applicant") {
             AppliedJobs =
@@ -167,7 +167,7 @@ class MyApplications extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.state.applications.filter(item => item.applicantId === user.id).map((application,ind) => (
+                                    {this.setState.applications.filter(item => item.applicantId === user.id).map((application,ind) => (
                                         <TableRow key={ind}>
                                             <TableCell>{application.title}</TableCell>
                                             <TableCell>{application.status}</TableCell>
@@ -179,7 +179,7 @@ class MyApplications extends Component {
                                             
                                             <TableCell>
                                                 <Rating
-                                                    value={this.state.rating}
+                                                    value={this.setState.rating}
                                                     onChange={this.giveRating}
                                                 />
                                                 <Tooltip title="Rate this job" aria-label="apply">
@@ -231,10 +231,10 @@ MyApplications.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+const mapsetStateToProps = setState => ({
+    auth: setState.auth,
+    errors: setState.errors
 });
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
 )(MyApplications);

@@ -8,7 +8,7 @@ import classnames from "classnames";
 class Login extends Component {
     constructor() {
         super();
-        this.state = {
+        this.setState = {
             email: "",
             password: "",
             errors: {}
@@ -25,25 +25,25 @@ class Login extends Component {
           this.props.history.push("/dashboard"); // push user to dashboard when they login
         }
     if (nextProps.errors) {
-          this.setState({
+          this.setsetState({
             errors: nextProps.errors
           });
         }
     }
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setsetState({ [e.target.id]: e.target.value });
     };
     onSubmit = e => {
         e.preventDefault();
         const userData = {
-            email: this.state.email,
-            password: this.state.password
+            email: this.setState.email,
+            password: this.setState.password
         };
         this.props.loginUser(userData);
         console.log(userData);
     };
     render() {
-        const { errors } = this.state;
+        const { errors } = this.setState;
         return (
             <div className="container">
                 <div style={{ marginTop: "4rem" }} className="row">
@@ -64,7 +64,7 @@ class Login extends Component {
                                 <label htmlFor="email">Email</label><br></br>
                                 <input
                                     onChange={this.onChange}
-                                    value={this.state.email}
+                                    value={this.setState.email}
                                     error={errors.email}
                                     id="email"
                                     type="email"
@@ -81,7 +81,7 @@ class Login extends Component {
                                 <label htmlFor="password">Password</label><br></br>
                                 <input
                                     onChange={this.onChange}
-                                    value={this.state.password}
+                                    value={this.setState.password}
                                     error={errors.password}
                                     id="password"
                                     type="password"
@@ -122,13 +122,13 @@ Login.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+const mapsetStateToProps = setState => ({
+    auth: setState.auth,
+    errors: setState.errors
 });
 
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
     { loginUser }
 )(Login);
   

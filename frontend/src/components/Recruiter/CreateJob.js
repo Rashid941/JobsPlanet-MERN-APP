@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 class CreateJob extends Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.setState = {
             userdetails: [],
             recruiter: [],
             recruiterName: "",
@@ -44,7 +44,7 @@ class CreateJob extends Component {
         const { user } = this.props.auth;
         axios.get('http://localhost:4000/user/'+ user.id)
              .then(response => {
-                 this.setState({userdetails: response.data});
+                 this.setsetState({userdetails: response.data});
              })
              .catch(function(error) {
                  console.log(error);
@@ -61,37 +61,37 @@ class CreateJob extends Component {
         let appmaxError = "";
 
     
-        if (this.state.title === "") {
+        if (this.setState.title === "") {
           titleError = "Title cannot be blank";
         }
 
-        if (this.state.type === "") {
+        if (this.setState.type === "") {
             typeError = "Select type of job";
         }
 
-        if (this.state.duration === -1) {
+        if (this.setState.duration === -1) {
             durationError = "Select duration of job";
         }
 
-        if (this.state.salary === -1) {
+        if (this.setState.salary === -1) {
             salaryError = "Enter Salary";
         }
     
-        if (this.state.address === "") {
+        if (this.setState.address === "") {
             addressError = "Address cannot be blank";
         }
 
-        if (new Date(this.state.deadline) < new Date().getTime()) {
+        if (new Date(this.setState.deadline) < new Date().getTime()) {
             deadlineError = "Deadline cannot be before tomorrow";
         }
 
-        if (this.state.appmax < this.state.posmax) {
+        if (this.setState.appmax < this.setState.posmax) {
             appmaxError = "Maximum number of applications cannot be less than maximum number of positions.";
         }
     
         if (titleError || typeError || durationError || salaryError
             || addressError || deadlineError || appmaxError) {
-            this.setState({ titleError, typeError, durationError, salaryError, addressError, deadlineError, appmaxError });
+            this.setsetState({ titleError, typeError, durationError, salaryError, addressError, deadlineError, appmaxError });
             return false;
         }
     
@@ -99,12 +99,12 @@ class CreateJob extends Component {
     };
 
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setsetState({ [e.target.id]: e.target.value });
     };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({
+            this.setsetState({
             errors: nextProps.errors
             });
         }
@@ -112,15 +112,15 @@ class CreateJob extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        let euser = this.state;
-        euser.skills = this.state.skillstr.split(',');
+        let euser = this.setState;
+        euser.skills = this.setState.skillstr.split(',');
         if(euser.durationstr !== "")
         {
             euser.duration = parseInt(euser.durationstr);
         }
         const newJob = {
-            recruiter: this.state.userdetails,
-            recruiterName: this.state.userdetails.name,
+            recruiter: this.setState.userdetails,
+            recruiterName: this.setState.userdetails.name,
             title: euser.title,
             description: euser.description,
             type: euser.type,
@@ -158,8 +158,8 @@ class CreateJob extends Component {
     };
 
     render() {
-        const user = this.state;
-        const userRole = this.state.userdetails.role;
+        const user = this.setState;
+        const userRole = this.setState.userdetails.role;
         let AddJob;
         if(userRole === "recruiter") {
             AddJob = 
@@ -173,7 +173,7 @@ class CreateJob extends Component {
                         type="text"
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.titleError}
+                        {this.setState.titleError}
                     </div>
                 </div>
                 <div className="input-field col s12">
@@ -185,13 +185,13 @@ class CreateJob extends Component {
                         type="text"
                     />
                     {/* <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.nameError}
+                        {this.setState.nameError}
                     </div> */}
                 </div>
                 <div className="input-field col s12">
                     <label htmlFor="type">Type</label><br></br>
                     <select 
-                        value={this.state.type} 
+                        value={this.setState.type} 
                         onChange={this.onChange}
                         id="type"
                     >
@@ -201,7 +201,7 @@ class CreateJob extends Component {
                         <option value="wfh">Work from home</option>
                     </select>
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.typeError}
+                        {this.setState.typeError}
                     </div>
                 </div> 
                 <div className="input-field col s12">
@@ -214,13 +214,13 @@ class CreateJob extends Component {
                         min="-1"
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.salaryError}
+                        {this.setState.salaryError}
                     </div>
                 </div>
                 <div className="input-field col s12">
                     <label htmlFor="durationstr">Duration</label><br></br>
                     <select 
-                        value={this.state.durationstr} 
+                        value={this.setState.durationstr} 
                         onChange={this.onChange}
                         id="durationstr"
                     >
@@ -234,7 +234,7 @@ class CreateJob extends Component {
                         <option value="6">6 months</option>
                     </select>
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.durationError}
+                        {this.setState.durationError}
                     </div>
                 </div> 
                 <div className="input-field col s12">
@@ -247,7 +247,7 @@ class CreateJob extends Component {
                         min="0"
                     />
                     {/* <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.nameError}
+                        {this.setState.nameError}
                     </div> */}
                 </div>
                 <div className="input-field col s12">
@@ -260,7 +260,7 @@ class CreateJob extends Component {
                         min="0"
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.appmaxError}
+                        {this.setState.appmaxError}
                     </div>
                 </div>
                 <div className="input-field col s12">
@@ -272,7 +272,7 @@ class CreateJob extends Component {
                         type="text"
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.addressError}
+                        {this.setState.addressError}
                     </div>
                 </div>
                 <div className="input-field col s12">
@@ -293,7 +293,7 @@ class CreateJob extends Component {
                         type="date"
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.deadlineError}
+                        {this.setState.deadlineError}
                     </div>
                 </div>
                 <div className="col s12" style={{ paddingLeft: "11.250px" }}>
@@ -336,10 +336,10 @@ CreateJob.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+const mapsetStateToProps = setState => ({
+    auth: setState.auth,
+    errors: setState.errors
 });
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
 )(CreateJob);

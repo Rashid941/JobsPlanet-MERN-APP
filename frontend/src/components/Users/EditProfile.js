@@ -13,7 +13,7 @@ class EditProfile extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
+        this.setState = {
             userdetails: [], 
             jobs: [],
             name: "",
@@ -35,7 +35,7 @@ class EditProfile extends Component {
         const { user } = this.props.auth;
         axios.get('http://localhost:4000/user/'+ user.id)
              .then(response => {
-                this.setState(
+                this.setsetState(
                 {
                     name: response.data.name,
                     email: response.data.email,
@@ -52,7 +52,7 @@ class EditProfile extends Component {
              })
         axios.get('http://localhost:4000/job/get_jobs')
             .then(response => {
-                this.setState({jobs: response.data});
+                this.setsetState({jobs: response.data});
             })
             .catch(function(error) {
                 console.log(error);
@@ -60,31 +60,31 @@ class EditProfile extends Component {
     }
 
     validate = () => {
-        const user = this.state;
+        const user = this.setState;
         let nameError = "";
         let emailError = "";
         let bioError = "";
     
-        if (!this.state.name) {
+        if (!this.setState.name) {
           nameError = "Name cannot be blank";
         }
     
-        if (!this.state.email.includes("@")) {
+        if (!this.setState.email.includes("@")) {
           emailError = "Invalid email";
         }
     
         if (emailError || nameError) {
-          this.setState({ emailError, nameError });
+          this.setsetState({ emailError, nameError });
           return false;
         }
 
         if(user.role === "recruiter")
         {
-            let num = this.state.bio.split(' ').length;
+            let num = this.setState.bio.split(' ').length;
             if(num > 250)
             {
                 bioError = "Bio cannot have more than 250 words.";
-                this.setState({ bioError });
+                this.setsetState({ bioError });
                 return false;
             }
         }
@@ -93,12 +93,12 @@ class EditProfile extends Component {
     };
 
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setsetState({ [e.target.id]: e.target.value });
     };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({
+            this.setsetState({
             errors: nextProps.errors
             });
         }
@@ -107,8 +107,8 @@ class EditProfile extends Component {
     onSubmit = e => {
         e.preventDefault();
         const { user } = this.props.auth;
-        const euser = this.state;
-        euser.skills = this.state.skillsstring.split(',');
+        const euser = this.setState;
+        euser.skills = this.setState.skillsstring.split(',');
         const editedUser = {
             name: euser.name,
             email: euser.email,
@@ -130,7 +130,7 @@ class EditProfile extends Component {
                 .catch(function(error) {
                     console.log(error);
                 })
-            this.state.jobs.filter(item => item.recruiter === user.id).forEach((jobb) => 
+            this.setState.jobs.filter(item => item.recruiter === user.id).forEach((jobb) => 
             {
                 const editJob = {
                     recruiterName: euser.name,
@@ -149,7 +149,7 @@ class EditProfile extends Component {
     };
 
     render() {
-        const user = this.state;
+        const user = this.setState;
         const userRole = user.role;
         user.skillsstring = user.skills.toString()
         let EditUserDetails;
@@ -165,7 +165,7 @@ class EditProfile extends Component {
                         type="text"
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.nameError}
+                        {this.setState.nameError}
                     </div>
                 </div>
                 <div className="input-field col s12">
@@ -177,7 +177,7 @@ class EditProfile extends Component {
                         type="email"
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.emailError}
+                        {this.setState.emailError}
                     </div>
                 </div>
                 <div className="input-field col s12">
@@ -217,7 +217,7 @@ class EditProfile extends Component {
                         type="text"
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.nameError}
+                        {this.setState.nameError}
                     </div>
                 </div>
                 <div className="input-field col s12">
@@ -229,7 +229,7 @@ class EditProfile extends Component {
                         type="text"
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.bioError}
+                        {this.setState.bioError}
                     </div>
                 </div>
                 <div className="input-field col s12">
@@ -250,7 +250,7 @@ class EditProfile extends Component {
                         type="email"
                     />
                     <div style={{ fontSize: 12, color: "red" }}>
-                        {this.state.emailError}
+                        {this.setState.emailError}
                     </div>
                 </div>
                 <div className="col s12" style={{ paddingLeft: "11.250px" }}>
@@ -295,10 +295,10 @@ EditProfile.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+const mapsetStateToProps = setState => ({
+    auth: setState.auth,
+    errors: setState.errors
 });
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
 )(EditProfile);

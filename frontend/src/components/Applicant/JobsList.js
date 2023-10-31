@@ -28,7 +28,7 @@ class JobsList extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {
+        this.setState = {
             userdetails: [],
             jobs: [],
             extraJobs: [], 
@@ -66,19 +66,19 @@ class JobsList extends Component {
     };
 
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setsetState({ [e.target.id]: e.target.value });
     };
 
     onFilter = e => {
-        let jobTypeVal = this.state.jobTypeFilterVal;
-        let salaryMinVal = this.state.salaryFilterMinVal;
-        let salaryMaxVal = this.state.salaryFilterMaxVal;
+        let jobTypeVal = this.setState.jobTypeFilterVal;
+        let salaryMinVal = this.setState.salaryFilterMinVal;
+        let salaryMaxVal = this.setState.salaryFilterMaxVal;
         let durationVal = "";
-        if(this.state.durationFilterVal !== "")
+        if(this.setState.durationFilterVal !== "")
         {
-            durationVal = parseInt(this.state.durationFilterVal);
+            durationVal = parseInt(this.setState.durationFilterVal);
         }
-        let filteredJobs = this.state.extraJobs;
+        let filteredJobs = this.setState.extraJobs;
         if(jobTypeVal !== "" && jobTypeVal !== undefined)
         {
             filteredJobs = filteredJobs.filter(item => item.type === jobTypeVal);
@@ -95,25 +95,25 @@ class JobsList extends Component {
         {
             filteredJobs = filteredJobs.filter(item => item.duration < durationVal);
         }
-        this.setState({ jobs: filteredJobs });
+        this.setsetState({ jobs: filteredJobs });
     };
 
     onSearch = e => {
-        this.setState({ searchval : e.target.value });
-        let sval = this.state.searchval;
+        this.setsetState({ searchval : e.target.value });
+        let sval = this.setState.searchval;
         if(sval === "" || sval === undefined)
         {
-            this.setState({ jobs : this.state.extraJobs });
+            this.setsetState({ jobs : this.setState.extraJobs });
         }
         else
         {
             const options = {
                 keys: ["title"]
             };
-            const fuse = new Fuse(this.state.jobs, options);
+            const fuse = new Fuse(this.setState.jobs, options);
             let result = fuse.search(sval);
             
-            // this.setState({ jobs : this.state.extraJobs.filter(item => item.title.includes(sval)) });
+            // this.setsetState({ jobs : this.setState.extraJobs.filter(item => item.title.includes(sval)) });
             let n = result.length;
             let i = 0;
             let res = [];
@@ -121,32 +121,32 @@ class JobsList extends Component {
                 res.push(result[i].item);
             }
             // console.log(res);
-            this.setState({ jobs : res });
-            // console.log(this.state.jobs);
+            this.setsetState({ jobs : res });
+            // console.log(this.setState.jobs);
             
         }
     };
 
     componentDidMount() {
         const { user } = this.props.auth;
-        this.setState({ showform : false });
+        this.setsetState({ showform : false });
         axios.get('http://localhost:4000/user/'+ user.id)
                 .then(response => {
-                    this.setState({userdetails: response.data});
+                    this.setsetState({userdetails: response.data});
                 })
                 .catch(function(error) {
                     console.log(error);
                 })
         axios.get('http://localhost:4000/job/get_jobs')
             .then(response => {
-                this.setState({jobs: response.data, extraJobs:response.data});
+                this.setsetState({jobs: response.data, extraJobs:response.data});
             })
             .catch(function(error) {
                 console.log(error);
             })
         axios.get('http://localhost:4000/application/get_applications')
             .then(response => {
-                this.setState({applications: response.data});
+                this.setsetState({applications: response.data});
             })
             .catch(function(error) {
                 console.log(error);
@@ -156,15 +156,15 @@ class JobsList extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({
+            this.setsetState({
             errors: nextProps.errors
             });
         }
     }
 
     sortBySalary(){
-        var array = this.state.jobs;
-        var flag = this.state.sortbysalary;
+        var array = this.setState.jobs;
+        var flag = this.setState.sortbysalary;
         array.sort(function(a, b) {
             if(a.salary !== undefined && b.salary !== undefined){
                 return (1 - +flag*2) * (+a.salary - +b.salary);
@@ -173,15 +173,15 @@ class JobsList extends Component {
                 return 1;
             }
           });
-        this.setState({
+        this.setsetState({
             jobs:array,
-            sortbysalary:!this.state.sortbysalary,
+            sortbysalary:!this.setState.sortbysalary,
         })
     }
 
     sortByDuration(){
-        var array = this.state.jobs;
-        var flag = this.state.sortbyduration;
+        var array = this.setState.jobs;
+        var flag = this.setState.sortbyduration;
         array.sort(function(a, b) {
             if(a.duration !== undefined && b.duration !== undefined){
                 return (1 - +flag*2) * (+a.duration - +b.duration);
@@ -190,15 +190,15 @@ class JobsList extends Component {
                 return 1;
             }
           });
-        this.setState({
+        this.setsetState({
             jobs:array,
-            sortbyduration:!this.state.sortbyduration,
+            sortbyduration:!this.setState.sortbyduration,
         })
     }
 
     sortByRating(){
-        var array = this.state.jobs;
-        var flag = this.state.sortbyrating;
+        var array = this.setState.jobs;
+        var flag = this.setState.sortbyrating;
         array.sort(function(a, b) {
             if(a.rating !== undefined && b.rating !== undefined){
                 return (1 - +flag*2) * (+a.rating - +b.rating);
@@ -207,14 +207,14 @@ class JobsList extends Component {
                 return 1;
             }
           });
-        this.setState({
+        this.setsetState({
             jobs:array,
-            sortbyrating:!this.state.sortbyrating,
+            sortbyrating:!this.setState.sortbyrating,
         })
     }
 
     renderSalaryIcon(){
-        if(this.state.sortbysalary){
+        if(this.setState.sortbysalary){
             return(
                 <ArrowDownwardIcon/>
             )
@@ -227,7 +227,7 @@ class JobsList extends Component {
     }
 
     renderDurationIcon(){
-        if(this.state.sortbyduration){
+        if(this.setState.sortbyduration){
             return(
                 <ArrowDownwardIcon/>
             )
@@ -240,7 +240,7 @@ class JobsList extends Component {
     }
 
     renderRatingIcon(){
-        if(this.state.sortbyrating){
+        if(this.setState.sortbyrating){
             return(
                 <ArrowDownwardIcon/>
             )
@@ -255,7 +255,7 @@ class JobsList extends Component {
     applied(job) {
         const { user } = this.props.auth;
         let num = 0;
-        let arr = this.state.applications.filter(item => item.jobId === job._id && item.applicantId === user.id && (item.status === "Applied" || item.status === "Shortlisted" || item.status === "Accepted"));
+        let arr = this.setState.applications.filter(item => item.jobId === job._id && item.applicantId === user.id && (item.status === "Applied" || item.status === "Shortlisted" || item.status === "Accepted"));
         num = arr.length;
         if(num>0) return true;
         else return false;
@@ -263,21 +263,21 @@ class JobsList extends Component {
 
     apply(job)
     {
-        if(this.state.userdetails.numapp >= 10)
+        if(this.setState.userdetails.numapp >= 10)
         {
             alert("Maximum open applications of 10 reached. Take a break!");
         }
-        else if(this.state.userdetails.working === true)
+        else if(this.setState.userdetails.working === true)
         {
             alert("You are already accepted into one of the jobs you applied for. Check My Applications page.");
         }
         else
         {
-            let show = !this.state.showform;
-            this.setState({ showform : show });
+            let show = !this.setState.showform;
+            this.setsetState({ showform : show });
             let editid = job._id;
-            this.setState({ editing : editid });
-            console.log(this.state.showform);
+            this.setsetState({ editing : editid });
+            console.log(this.setState.showform);
             this.props.history.push('/jobsList');
             this.props.history.push('/jobsList');
             this.props.history.goBack();
@@ -293,7 +293,7 @@ class JobsList extends Component {
             recruiterId:job.recruiter,
             stage: 0,
             status: "Applied",
-            sop: this.state.enteredsop,
+            sop: this.setState.enteredsop,
             salary: job.salary,
             recruiterName: job.recruiterName,
             rating: -1,
@@ -306,22 +306,22 @@ class JobsList extends Component {
             numapp: nnumapp 
         }
 
-        let appnumapp = +this.state.userdetails.numapp + 1;
+        let appnumapp = +this.setState.userdetails.numapp + 1;
 
         const editApplicant = {
             numapp:  appnumapp
         }
 
-        let num = this.state.enteredsop.split(' ').length;
+        let num = this.setState.enteredsop.split(' ').length;
 
         let soperror = "";
         if(num>250)
         {
             soperror = "Maximum 250 words allowed.";
-            this.setState({sopError: soperror});
+            this.setsetState({sopError: soperror});
         }
 
-        if(num <= 250 && this.state.userdetails.numapp <= 10)
+        if(num <= 250 && this.setState.userdetails.numapp <= 10)
         {
             axios
                 .post('http://localhost:4000/application/add_application', newApplication)
@@ -349,7 +349,7 @@ class JobsList extends Component {
                 .catch(function(error) {
                     console.log(error);
                 })
-                this.setState({ editting : "" });
+                this.setsetState({ editting : "" });
             this.props.history.push('/jobsList');
             this.props.history.push('/');
             this.props.history.goBack();
@@ -362,7 +362,7 @@ class JobsList extends Component {
 
     render() 
     {
-        const userRole = this.state.userdetails.role;
+        const userRole = this.setState.userdetails.role;
         const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
         ];
@@ -383,7 +383,7 @@ class JobsList extends Component {
                         <TextField 
                         id="searchval" 
                         onChange={this.onChange}
-                        value={this.state.searchval}
+                        value={this.setState.searchval}
                         placeholder="Fuzzy Search"
                         fullWidth={true}   
                         InputProps={{
@@ -405,7 +405,7 @@ class JobsList extends Component {
                         Filters:
                         <List component="nav" aria-label="mailbox folders">
                             <select 
-                                value={this.state.jobTypeFilterVal} 
+                                value={this.setState.jobTypeFilterVal} 
                                 onChange={this.onChange}
                                 id="jobTypeFilterVal"
                             >
@@ -417,7 +417,7 @@ class JobsList extends Component {
                             {/* <TextField 
                                 id="jobTypeFilterVal" 
                                 onChange={this.onChange}
-                                value={this.state.jobTypeFilterVal}
+                                value={this.setState.jobTypeFilterVal}
                                 placeholder="Job Type"
                                 fullWidth={true}   
                             /> */}
@@ -428,14 +428,14 @@ class JobsList extends Component {
                             <TextField 
                                 id="salaryFilterMinVal" 
                                 onChange={this.onChange}
-                                value={this.state.salaryFilterMinVal}
+                                value={this.setState.salaryFilterMinVal}
                                 placeholder="Min Salary"
                                 fullWidth={true}   
                             />
                             <TextField 
                                 id="salaryFilterMaxVal" 
                                 onChange={this.onChange}
-                                value={this.state.salaryFilterMaxVal}
+                                value={this.setState.salaryFilterMaxVal}
                                 placeholder="Max Salary"
                                 fullWidth={true}   
                             />
@@ -445,7 +445,7 @@ class JobsList extends Component {
                         <List component="nav" aria-label="mailbox folders">
                        
                             <select 
-                                value={this.state.durationFilterVal} 
+                                value={this.setState.durationFilterVal} 
                                 onChange={this.onChange}
                                 id="durationFilterVal"
                             >
@@ -484,7 +484,7 @@ class JobsList extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.state.jobs.filter(item => (new Date()).getTime() <= (new Date(item.deadline.substring(0,10))).getTime()).map((job,ind) => (
+                                    {this.setState.jobs.filter(item => (new Date()).getTime() <= (new Date(item.deadline.substring(0,10))).getTime()).map((job,ind) => (
                                         <TableRow key={ind}>
                                             <TableCell>{job.title}</TableCell>
                                             <TableCell>{job.recruiterName}</TableCell>
@@ -497,7 +497,7 @@ class JobsList extends Component {
                                             <TableCell>{job.deadline.substring(0,10)}</TableCell>
                                             <TableCell>{job.rating? job.rating.toFixed(1): ""}<i className="material-icons"><h6> star</h6></i></TableCell>
                                     
-                                            {!this.applied(job) && job._id !== this.state.editing && !(job.numpos >= job.posmax || job.numapp >= job.appmax)?
+                                            {!this.applied(job) && job._id !== this.setState.editing && !(job.numpos >= job.posmax || job.numapp >= job.appmax)?
                                             
                                             <TableCell>
                                                 <Tooltip title="Apply for this job" aria-label="apply">
@@ -544,14 +544,14 @@ class JobsList extends Component {
 
                                             }
 
-                                            {this.state.showform === true && job._id === this.state.editing?
+                                            {this.setState.showform === true && job._id === this.setState.editing?
                                             <TableCell>
                                                 <div>
                                                     <div className="input-field">
                                                         <label htmlFor="enteredsop">Enter SOP:</label><br></br>
                                                         <input
                                                             onChange={this.onChange}
-                                                            value={this.state.enteredsop}
+                                                            value={this.setState.enteredsop}
                                                             id="enteredsop"
                                                             type="text"
                                                         />
@@ -599,10 +599,10 @@ JobsList.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+const mapsetStateToProps = setState => ({
+    auth: setState.auth,
+    errors: setState.errors
 });
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
 )(JobsList);

@@ -12,7 +12,7 @@ class AddEducation extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
+        this.setState = {
             newed:[],
             role: "",
             school: "",
@@ -28,7 +28,7 @@ class AddEducation extends Component {
         const { user } = this.props.auth;
         axios.get('http://localhost:4000/user/'+ user.id)
             .then(response => {
-                this.setState({userDetails: response.data});
+                this.setsetState({userDetails: response.data});
             })
             .catch(function(error) {
                 console.log(error);
@@ -36,12 +36,12 @@ class AddEducation extends Component {
     }
 
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setsetState({ [e.target.id]: e.target.value });
     };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({
+            this.setsetState({
                 errors: nextProps.errors
             });
         }
@@ -51,10 +51,10 @@ class AddEducation extends Component {
         e.preventDefault();
         const { user } = this.props.auth;
         const newEducation = {
-            school: this.state.school,
-            degree: this.state.degree,
-            startdate: this.state.startdate,
-            enddate: this.state.enddate
+            school: this.setState.school,
+            degree: this.setState.degree,
+            startdate: this.setState.startdate,
+            enddate: this.setState.enddate
         };
         var g1,g2;
         if(newEducation.startdate && newEducation.enddate)
@@ -71,11 +71,11 @@ class AddEducation extends Component {
             alert("End date cannot be before start date.");
         }
         else{
-            this.state.userDetails.education.push(newEducation);
+            this.setState.userDetails.education.push(newEducation);
             axios
-                .put('http://localhost:4000/user/edit_profile/' + user.id, this.state.userDetails)
+                .put('http://localhost:4000/user/edit_profile/' + user.id, this.setState.userDetails)
                 .then(response => {
-                    console.log(this.state.userDetails);this.props.history.push('/profile');
+                    console.log(this.setState.userDetails);this.props.history.push('/profile');
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -84,7 +84,7 @@ class AddEducation extends Component {
     };
 
     render() {
-        const userRole = this.state.userDetails.role;
+        const userRole = this.setState.userDetails.role;
         let AddEducation;
         if(userRole === 'applicant') {
             AddEducation = 
@@ -93,7 +93,7 @@ class AddEducation extends Component {
                     <label htmlFor="school">School</label><br></br>
                     <input
                         onChange={this.onChange}
-                        value={this.state.school}
+                        value={this.setState.school}
                         id="school"
                         type="text"
                     />
@@ -102,7 +102,7 @@ class AddEducation extends Component {
                     <label htmlFor="degree">Degree</label><br></br>
                     <input
                         onChange={this.onChange}
-                        value={this.state.degree}
+                        value={this.setState.degree}
                         id="degree"
                         type="text"
                     />
@@ -111,7 +111,7 @@ class AddEducation extends Component {
                     <label htmlFor="startdate">Start Date</label><br></br>
                     <input
                         onChange={this.onChange}
-                        value={this.state.startdate}
+                        value={this.setState.startdate}
                         id="startdate"
                         type="date"
                     />
@@ -120,7 +120,7 @@ class AddEducation extends Component {
                     <label htmlFor="enddate">End Date</label><br></br>
                     <input
                         onChange={this.onChange}
-                        value={this.state.enddate}
+                        value={this.setState.enddate}
                         id="enddate"
                         type="date"
                     />
@@ -164,10 +164,10 @@ AddEducation.propTypes = {
     errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+const mapsetStateToProps = setState => ({
+    auth: setState.auth,
+    errors: setState.errors
 });
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
 )(AddEducation);

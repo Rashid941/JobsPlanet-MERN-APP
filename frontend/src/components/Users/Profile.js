@@ -15,7 +15,7 @@ class Profile extends Component {
 
     constructor(props) {
         super(props);
-        this.state = 
+        this.setState = 
         {
             userdetails: [], 
             showform: false,
@@ -33,14 +33,14 @@ class Profile extends Component {
     }
 
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setsetState({ [e.target.id]: e.target.value });
     };
 
     componentDidMount() {
         const { user } = this.props.auth;
         axios.get('http://localhost:4000/user/'+ user.id)
              .then(response => {
-                 this.setState({userdetails: response.data});
+                 this.setsetState({userdetails: response.data});
              })
              .catch(function(error) {
                  console.log(error);
@@ -50,11 +50,11 @@ class Profile extends Component {
     delEducation(ed) {
         const { user } = this.props.auth;
         const idToRemove = ed._id;
-        this.state.userdetails.education = this.state.userdetails.education.filter((item) => item._id !== idToRemove);
+        this.setState.userdetails.education = this.setState.userdetails.education.filter((item) => item._id !== idToRemove);
         axios
-            .put('http://localhost:4000/user/edit_profile/' + user.id, this.state.userdetails)
+            .put('http://localhost:4000/user/edit_profile/' + user.id, this.setState.userdetails)
             .then(response => {
-                console.log(this.state.userdetails);
+                console.log(this.setState.userdetails);
             })
             .catch(function(error) {
                 console.log(error);
@@ -64,24 +64,24 @@ class Profile extends Component {
     }
 
     editEducation(ed) {
-        let show = !this.state.showform;
-        this.setState({showform: show});
+        let show = !this.setState.showform;
+        this.setsetState({showform: show});
         let editid = ed._id;
-        this.setState({editing: editid});
-        console.log(this.state.showform);
-        this.setState({ school: ed.school });
-        this.setState({ degree: ed.degree });
+        this.setsetState({editing: editid});
+        console.log(this.setState.showform);
+        this.setsetState({ school: ed.school });
+        this.setsetState({ degree: ed.degree });
         if(ed.startdate)
         {
             ed.startdate = ed.startdate.toString();
             ed.startdate = ed.startdate.substring(0,10);
-            this.setState({ startdate: ed.startdate });
+            this.setsetState({ startdate: ed.startdate });
         }
         if(ed.enddate)
         {
             ed.enddate = ed.enddate.toString();
             ed.enddate = ed.enddate.substring(0,10);
-            this.setState({ enddate: ed.enddate });
+            this.setsetState({ enddate: ed.enddate });
         }
         
         // to refresh
@@ -89,9 +89,9 @@ class Profile extends Component {
     }
 
     onBack() {
-        let show = !this.state.showform;
-        this.setState({ showform: show});
-        this.setState({ editing: "" });
+        let show = !this.setState.showform;
+        this.setsetState({ showform: show});
+        this.setsetState({ editing: "" });
         
         // to refresh
         window.location.reload();
@@ -100,36 +100,36 @@ class Profile extends Component {
     editEducationSubmit(ed) {
         const { user } = this.props.auth;
         const idToChange = ed._id;
-        this.setState({ editing: "" });
-        const ind = this.state.userdetails.education.findIndex(x => x._id === idToChange)
-        if(this.state.school !== "")
-            this.state.userdetails.education[ind].school = this.state.school;
-        if(this.state.degree !== "")
-            this.state.userdetails.education[ind].degree = this.state.degree;
-        this.state.userdetails.education[ind].startdate = this.state.startdate;
-        if(this.state.enddate && new Date(this.state.enddate) <= new Date(this.state.startdate))
+        this.setsetState({ editing: "" });
+        const ind = this.setState.userdetails.education.findIndex(x => x._id === idToChange)
+        if(this.setState.school !== "")
+            this.setState.userdetails.education[ind].school = this.setState.school;
+        if(this.setState.degree !== "")
+            this.setState.userdetails.education[ind].degree = this.setState.degree;
+        this.setState.userdetails.education[ind].startdate = this.setState.startdate;
+        if(this.setState.enddate && new Date(this.setState.enddate) <= new Date(this.setState.startdate))
         {
             alert("End date ahould be after start date.");
         }
         else {
-            this.state.userdetails.education[ind].enddate = this.state.enddate;
+            this.setState.userdetails.education[ind].enddate = this.setState.enddate;
             axios
-                .put('http://localhost:4000/user/edit_profile/' + user.id, this.state.userdetails)
+                .put('http://localhost:4000/user/edit_profile/' + user.id, this.setState.userdetails)
                 .then(response => {
-                    console.log(this.state.userdetails);
+                    console.log(this.setState.userdetails);
                 })
                 .catch(function(error) {
                     console.log(error);
                 })
             // to refresh
         }
-        let show = !this.state.showform;
-        this.setState({ showform: show});
+        let show = !this.setState.showform;
+        this.setsetState({ showform: show});
         // window.location.reload();
     }
 
     render() {
-        const user = this.state.userdetails;
+        const user = this.setState.userdetails;
         const userRole = user.role;
         let UserDetails;
         if(userRole === 'applicant') {
@@ -164,7 +164,7 @@ class Profile extends Component {
                                     </ul>
                                     
                                     <div>
-                                        { !this.state.showform || ed._id !== this.state.editing? 
+                                        { !this.setState.showform || ed._id !== this.setState.editing? 
                                             <div>
                                                 <Tooltip title="Delete Above Education" aria-label="delete">
                                                 <button
@@ -195,7 +195,7 @@ class Profile extends Component {
                                                         <label htmlFor="school">School</label><br></br>
                                                         <input
                                                             onChange={this.onChange}
-                                                            value={this.state.school}
+                                                            value={this.setState.school}
                                                             id="school"
                                                             type="text"
                                                         />
@@ -204,7 +204,7 @@ class Profile extends Component {
                                                         <label htmlFor="degree">Degree</label><br></br>
                                                         <input
                                                             onChange={this.onChange}
-                                                            value={this.state.degree}
+                                                            value={this.setState.degree}
                                                             id="degree"
                                                             type="text"
                                                         />
@@ -213,7 +213,7 @@ class Profile extends Component {
                                                         <label htmlFor="startdate">Start Date</label><br></br>
                                                         <input
                                                             onChange={this.onChange}
-                                                            value={this.state.startdate}
+                                                            value={this.setState.startdate}
                                                             id="startdate"
                                                             type="date"
                                                         />
@@ -222,7 +222,7 @@ class Profile extends Component {
                                                         <label htmlFor="enddate">End Date</label><br></br>
                                                         <input
                                                             onChange={this.onChange}
-                                                            value={this.state.enddate}
+                                                            value={this.setState.enddate}
                                                             id="enddate"
                                                             type="date"
                                                         />
@@ -299,9 +299,9 @@ Profile.propTypes = {
     auth: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-    auth: state.auth
+const mapsetStateToProps = setState => ({
+    auth: setState.auth
 });
 export default connect(
-    mapStateToProps,
+    mapsetStateToProps,
 )(Profile);
